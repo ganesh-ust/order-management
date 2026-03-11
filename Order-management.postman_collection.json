@@ -1,0 +1,65 @@
+{
+  "info": {
+    "_postman_id": "a51832a1-4037-46a3-9377-8e84ada72d04",
+    "name": "Order-management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53070054",
+    "_collection_link": "https://go.postman.co/collection/53070054-a51832a1-4037-46a3-9377-8e84ada72d04?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "delivery-fee",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status code is 201', function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test('Response contains user ID', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.be.a('number');",
+              "});",
+              "",
+              "pm.test('Response contains email', function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.email).to.equal(pm.environment.get('email'));",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"orders\": [\n    { \"id\": 1, \"customer\": \"Alice\", \"orderValue\": 40, \"sameDay\": false },\n    { \"id\": 2, \"customer\": \"Bob\", \"orderValue\": 75, \"sameDay\": true },\n    { \"id\": 3, \"customer\": \"Charlie\", \"orderValue\": 150, \"sameDay\": false }\n  ]\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8080/orders/delivery-fee",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8080",
+          "path": [
+            "orders",
+            "delivery-fee"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
